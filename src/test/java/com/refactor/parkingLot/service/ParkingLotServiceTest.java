@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class ParkingLotServiceTest {
@@ -58,4 +60,19 @@ public class ParkingLotServiceTest {
         Assert.assertEquals(20,results.get(1).getSize());
     }
 
+    @Test
+    public void should_update_the_parkingLot_successfully_when_cahnge_some_information_of_parkingLot(){
+
+        ParkingLotRepository mockRepository = mock(ParkingLotRepository.class);
+        ParkingLotService parkingLotService = new ParkingLotService(mockRepository);
+        ParkingLot parkingLot=new ParkingLot(1L,"东南停车场",12);
+
+        when(mockRepository.save(parkingLot)).thenReturn(parkingLot);
+        try{
+            ParkingLot result = parkingLotService.updateParkingLot(parkingLot);
+            verify(mockRepository).save(parkingLot);
+        }catch (Exception exception){
+            fail("should update sucessfully,but fail");
+        }
+    }
 }

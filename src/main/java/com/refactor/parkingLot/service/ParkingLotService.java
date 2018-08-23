@@ -25,4 +25,8 @@ public class ParkingLotService {
     public List<ParkingLot> findAll() {
         return repository.findAll();
     }
+
+    public ParkingLot updateParkingLot(ParkingLot parkingLot) {
+        return repository.save(parkingLot);
+    }
 }
