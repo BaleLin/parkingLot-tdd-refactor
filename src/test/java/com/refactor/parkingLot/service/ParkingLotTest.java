@@ -23,4 +23,5 @@ public class ParkingLotTest {
        Assert.assertEquals("东南停车场",result.getName());
        Assert.assertEquals(12,result.getSize());
    }
+
 }
