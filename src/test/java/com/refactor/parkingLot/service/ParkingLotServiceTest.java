@@ -2,14 +2,13 @@ package com.refactor.parkingLot.service;
 
 import com.refactor.parkingLot.entites.ParkingLot;
 import com.refactor.parkingLot.repository.ParkingLotRepository;
-import com.refactor.parkingLot.servies.ParkingLotService;
 import org.junit.Assert;
 import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ParkingLotTest {
+public class ParkingLotServiceTest {
    @Test
    public void should_create_parkingLot_successfully_when_given_name_and_size(){
 

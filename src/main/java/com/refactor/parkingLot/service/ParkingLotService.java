@@ -1,4 +1,4 @@
-package com.refactor.parkingLot.servies;
+package com.refactor.parkingLot.service;
 
 import com.refactor.parkingLot.entites.ParkingLot;
 import com.refactor.parkingLot.repository.ParkingLotRepository;

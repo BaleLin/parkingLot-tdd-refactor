@@ -1,7 +1,6 @@
-package com.refactor.parkingLot.reository;
+package com.refactor.parkingLot.repository;
 
 import com.refactor.parkingLot.entites.ParkingLot;
-import com.refactor.parkingLot.repository.ParkingLotRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class ParkingLotTest {
+public class ParkingLotReositoryTest {
     @Autowired
     private TestEntityManager testEntityManager;
 
