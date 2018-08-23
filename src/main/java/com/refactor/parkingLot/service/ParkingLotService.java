@@ -23,6 +23,6 @@ public class ParkingLotService {
     }
 
     public List<ParkingLot> findAll() {
-        return null;
+        return repository.findAll();
     }
 }
