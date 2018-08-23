@@ -24,4 +24,14 @@ public class ParkingLotController {
     public ResponseEntity<List<ParkingLot>> findAll(){
         return ResponseEntity.ok(parkingLotService.findAll());
     }
+
+    @PutMapping
+    public ResponseEntity update(@RequestBody ParkingLot parkingLot){
+        try {
+            parkingLotService.updateParkingLot(parkingLot);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

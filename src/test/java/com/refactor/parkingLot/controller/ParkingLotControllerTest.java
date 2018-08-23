@@ -19,6 +19,7 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -59,5 +60,19 @@ public class ParkingLotControllerTest {
                 .andExpect(jsonPath("$[1].name",equalTo("西南停车场")))
                 .andExpect(jsonPath("$[0].size",equalTo(12)))
                 .andExpect(jsonPath("$[1].size",equalTo(20)));
+    }
+
+    @Test
+    public void should_update_parkingLot_successfully_when_give_right_information_of_specific_parkinglot() throws Exception {
+
+        ParkingLot parkingLot = new ParkingLot(1L,"西南停车场",20);
+
+        when(parkingLotService.updateParkingLot(parkingLot)).thenReturn(parkingLot);
+        ResultActions resultActions = mockMvc.perform(put("/parkingLots")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(parkingLot))
+        );
+
+        resultActions.andExpect(status().isNoContent());
     }
 }
