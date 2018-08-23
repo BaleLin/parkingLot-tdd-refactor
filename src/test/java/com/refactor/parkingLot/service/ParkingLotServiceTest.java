@@ -9,8 +9,11 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -67,12 +70,31 @@ public class ParkingLotServiceTest {
         ParkingLotService parkingLotService = new ParkingLotService(mockRepository);
         ParkingLot parkingLot=new ParkingLot(1L,"东南停车场",12);
 
+        when(mockRepository.findById(1L)).thenReturn(Optional.of(parkingLot));
         when(mockRepository.save(parkingLot)).thenReturn(parkingLot);
+
         try{
             ParkingLot result = parkingLotService.updateParkingLot(parkingLot);
             verify(mockRepository).save(parkingLot);
         }catch (Exception exception){
             fail("should update sucessfully,but fail");
+        }
+    }
+
+
+    @Test
+    public void should_update_the_parkingLot_fail_when_cahnge_some_information_of_parkingLot(){
+
+        ParkingLotRepository mockRepository = mock(ParkingLotRepository.class);
+        ParkingLotService parkingLotService = new ParkingLotService(mockRepository);
+        ParkingLot parkingLot=new ParkingLot(1L,"东南停车场",12);
+        when(mockRepository.save(parkingLot)).thenReturn(parkingLot);
+        try{
+            ParkingLot result = parkingLotService.updateParkingLot(parkingLot);
+            verify(mockRepository).save(parkingLot);
+            fail("should update fail,but sucessfully");
+        }catch (Exception exception){
+           assertEquals("update error",exception.getMessage());
         }
     }
 }

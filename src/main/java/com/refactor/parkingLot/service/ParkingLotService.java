@@ -26,7 +26,12 @@ public class ParkingLotService {
         return repository.findAll();
     }
 
-    public ParkingLot updateParkingLot(ParkingLot parkingLot) {
-        return repository.save(parkingLot);
+    public ParkingLot updateParkingLot(ParkingLot parkingLot) throws Exception {
+        if (repository.findById(parkingLot.getId()).isPresent()){
+            return repository.save(parkingLot);
+        }else {
+            throw new Exception("update error");
+        }
+
     }
 }
