@@ -12,9 +12,14 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import java.util.Arrays;
 
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -37,5 +42,23 @@ public class ParkingLotControllerTest {
                 .content(objectMapper.writeValueAsString(parkingLot)));
 
         resultActions.andExpect(status().isCreated());
+    }
+
+    @Test
+    public void should_return_all_parkingLots_when_send_get_request() throws Exception {
+
+         ParkingLot parkingLot1 = new ParkingLot("东南停车场",12);
+        ParkingLot parkingLot2 = new ParkingLot("西南停车场",20);
+
+        when(parkingLotService.findAll()).thenReturn(Arrays.asList(parkingLot1,parkingLot2));
+        ResultActions resultActions = mockMvc.perform(get("/parkingLots"));
+
+        resultActions.andExpect(status().isOk())
+                .andExpect(jsonPath("$",hasSize(2)))
+                .andExpect(jsonPath("$[0].content.name",equalTo("东南停车场")))
+                .andExpect(jsonPath("$[1].content.name",equalTo("西南停车场")))
+                .andExpect(jsonPath("$[0].content.size",equalTo(12)))
+                .andExpect(jsonPath("$[1].content.size",equalTo(20)));
+
     }
 }
