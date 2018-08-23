@@ -59,6 +59,5 @@ public class ParkingLotControllerTest {
                 .andExpect(jsonPath("$[1].name",equalTo("西南停车场")))
                 .andExpect(jsonPath("$[0].size",equalTo(12)))
                 .andExpect(jsonPath("$[1].size",equalTo(20)));
-
     }
 }

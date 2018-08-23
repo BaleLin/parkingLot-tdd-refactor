@@ -1,6 +1,7 @@
 package com.refactor.parkingLot.repository;
 
 import com.refactor.parkingLot.entites.ParkingLot;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +24,12 @@ public class ParkingLotReositoryTest {
 
     @Autowired
     private ParkingLotRepository parkingLotRepository;
-    
+
+    @After
+    public void clearEntityManager(){
+        testEntityManager.clear();
+    }
+
     @Test
     public void should_save_to_database_successfully_when_given_a_parkingLot(){
 
@@ -40,10 +46,20 @@ public class ParkingLotReositoryTest {
         testEntityManager.persist(new ParkingLot("西南停车场",20));
         List<ParkingLot> parkingLotList = parkingLotRepository.findAll();
         Assert.assertEquals(parkingLotList.size(),2);
-        Assert.assertEquals(parkingLotList.get(0).getName(),"东南停车场");
-        Assert.assertEquals(parkingLotList.get(1).getName(),"西南停车场");
-        Assert.assertEquals(parkingLotList.get(0).getSize(),20);
-        Assert.assertEquals(parkingLotList.get(1).getSize(),20);
+        Assert.assertEquals("东南停车场",parkingLotList.get(0).getName());
+        Assert.assertEquals("西南停车场",parkingLotList.get(1).getName());
+        Assert.assertEquals(20,parkingLotList.get(0).getSize());
+        Assert.assertEquals(20,parkingLotList.get(1).getSize());
 
+    }
+
+    @Test
+    public void should_update_the_parkingLot_successfully_when_cahnge_some_information_of_parkingLot(){
+        testEntityManager.persist(new ParkingLot("东南停车场",20));
+        ParkingLot parkingLot = new ParkingLot(1L,"西南停车场",20);
+        parkingLotRepository.save(parkingLot);
+        ParkingLot result = parkingLotRepository.findById(1L).get();
+        Assert.assertEquals("西南停车场",result.getName());
+        Assert.assertEquals(20,result.getSize());
     }
 }
