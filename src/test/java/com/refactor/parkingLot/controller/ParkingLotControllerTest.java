@@ -55,10 +55,10 @@ public class ParkingLotControllerTest {
 
         resultActions.andExpect(status().isOk())
                 .andExpect(jsonPath("$",hasSize(2)))
-                .andExpect(jsonPath("$[0].content.name",equalTo("东南停车场")))
-                .andExpect(jsonPath("$[1].content.name",equalTo("西南停车场")))
-                .andExpect(jsonPath("$[0].content.size",equalTo(12)))
-                .andExpect(jsonPath("$[1].content.size",equalTo(20)));
+                .andExpect(jsonPath("$[0].name",equalTo("东南停车场")))
+                .andExpect(jsonPath("$[1].name",equalTo("西南停车场")))
+                .andExpect(jsonPath("$[0].size",equalTo(12)))
+                .andExpect(jsonPath("$[1].size",equalTo(20)));
 
     }
 }
