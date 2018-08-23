@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,6 +27,19 @@ public class ParkingLotServiceTest {
        Assert.assertEquals("东南停车场",result.getName());
        Assert.assertEquals(12,result.getSize());
    }
+
+    @Test
+    public void should_get_empty_result_set_when_no_parkingLot(){
+
+        ParkingLotRepository mockRepository = mock(ParkingLotRepository.class);
+        ParkingLotService parkingLotService = new ParkingLotService(mockRepository);
+
+        when(mockRepository.findAll()).thenReturn(new ArrayList<>());
+        List<ParkingLot> results = parkingLotService.findAll();
+
+        Assert.assertEquals(results.size(),0);
+    }
+
     @Test
     public void should_query_all_parkingLots_when_find_all_parkingLots(){
 
