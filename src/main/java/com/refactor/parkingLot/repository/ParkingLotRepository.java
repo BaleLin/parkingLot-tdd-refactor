@@ -13,7 +13,4 @@ import javax.transaction.Transactional;
 @Repository
 public interface ParkingLotRepository extends JpaRepository<ParkingLot,Long>,JpaSpecificationExecutor<ParkingLot> {
 
-    @Query(value = "update Parking_Lot set `status` = ?2 where id = ?1", nativeQuery = true)
-    @Modifying
-    void changeState(Long id,String status);
 }

@@ -14,24 +14,26 @@ import java.util.List;
 public class ParkingLotController {
     @Autowired
     ParkingLotService parkingLotService;
+
     @PostMapping
-    public ResponseEntity<ParkingLot> createParkingLot(@RequestBody ParkingLot parkingLot){
+    public ResponseEntity<ParkingLot> createParkingLot(@RequestBody ParkingLot parkingLot) {
         ParkingLot saveParkingLot = parkingLotService.createParkingLot(parkingLot);
-        return   new ResponseEntity<ParkingLot>(saveParkingLot,HttpStatus.CREATED);
+        return new ResponseEntity<ParkingLot>(saveParkingLot, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<ParkingLot>> findAll(){
+    public ResponseEntity<List<ParkingLot>> findAll() {
         return ResponseEntity.ok(parkingLotService.findAll());
     }
 
     @PutMapping
-    public ResponseEntity update(@RequestBody ParkingLot parkingLot){
+    public ResponseEntity update(@RequestBody ParkingLot parkingLot) {
         try {
             parkingLotService.updateParkingLot(parkingLot);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
-        return ResponseEntity.noContent().build();
+
     }
 }
